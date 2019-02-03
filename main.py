@@ -75,15 +75,15 @@ def process_image(image):
     opening = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel)
     closing = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, kernel)
 
-    #Find contours in the thresholded image TODO: detect shape and only
-    #draw ROI around squares (method for checking shape is above)
-
-
     #cnt_image = thresh.copy()
     cnt_image = cv2.convertScaleAbs(closing)
     cnt_image = cv2.bitwise_not(cnt_image)
-    #cv2.imshow("meme", cv2.resize(cnt_image, (403,302)))
-    #cv2.waitKey()
+    h, w = cnt_image.shape
+    cv2.imshow("Mask", cv2.resize(cnt_image, (int(w/5), int(h/5))))
+    cv2.waitKey()
+
+    #Find contours in the thresholded image TODO: detect shape and only
+    #draw ROI around squares (method for checking shape is above)
 
     cnts = cv2.findContours(cnt_image, cv2.RETR_EXTERNAL,
     cv2.CHAIN_APPROX_SIMPLE)
@@ -116,7 +116,11 @@ def process_image(image):
             #rects.append(rect)
             #cv2.rectangle(image, (x - 3, y - 3), (x+w + 3, y+h + 3), (0, 0, 255), 1)
             #cv2.circle(image, (x + w / 2, y + h / 2), w / 2 + 40, (0, 0, 255), 2)
-            images.append(image[y:(y + h),x:(x + w)])
+            i = image[y:(y + h),x:(x + w)]
+            images.append(i)
+            h, w, c = i.shape
+            cv2.imshow("Trash Object", cv2.resize(i, (w, h)))
+            cv2.waitKey()
 
     #Return object with bounding boxes
     return images
