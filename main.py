@@ -135,8 +135,6 @@ def classify_trash(images):
     for i in images:
         pre, prob = prediction.predictImage(i, input_type="array")
         trashTypes.add(pre[0])
-        print(pre)
-        print(prob)
     return trashTypes
 
 test = cv2.imread(os.path.join(execution_path, 'test.jpg'))
