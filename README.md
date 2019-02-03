@@ -1,4 +1,4 @@
-#LitCam
+# LitCam
 
 ## Dataset Attribution
 We did not gather this dataset. Checkout the repository we used, Trashnet, [here](https://github.com/garythung/trashnet).
